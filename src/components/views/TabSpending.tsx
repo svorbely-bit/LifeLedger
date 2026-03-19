@@ -662,7 +662,7 @@ export default function TabSpending({ currentUser }: { currentUser: number | nul
               onClick={() => setIsAdding(!isAdding)}
               className="w-10 h-10 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center hover:bg-purple-500/30 transition-colors"
             >
-              <Plus size={24} className={isAdding ? "rotate-45" : ""} />
+              <Plus size={20} className={isAdding ? "rotate-45" : ""} />
             </button>
           )}
         </div>
@@ -816,7 +816,7 @@ export default function TabSpending({ currentUser }: { currentUser: number | nul
                             setEditTarget(ticket.target?.toString() || '');
                             setEditAmount(ticket.defaultAmount?.toString() || '');
                           }}
-                          className="opacity-0 group-hover:opacity-100 text-white/40 hover:text-white transition-opacity ml-1 p-1"
+                          className="text-white/40 hover:text-white transition-opacity ml-1 p-2"
                         >
                           <Edit2 size={20} />
                         </button>
@@ -1021,7 +1021,7 @@ export default function TabSpending({ currentUser }: { currentUser: number | nul
                                     <span className="font-bold text-white">${log.amount.toFixed(2)}</span>
                                     <span className="text-xs text-white/40 ml-2">{format(new Date(log.date), 'MMM d, p')}</span>
                                   </div>
-                                  <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                  <div className="flex gap-1 transition-opacity">
                                     <button 
                                       onClick={(e) => {
                                         e.stopPropagation();
@@ -1029,13 +1029,13 @@ export default function TabSpending({ currentUser }: { currentUser: number | nul
                                         setEditLogAmount(log.amount.toString());
                                         setEditLogDate(format(new Date(log.date), 'yyyy-MM-dd'));
                                       }}
-                                      className="p-1 hover:bg-white/10 rounded-lg text-white/40 hover:text-white transition-colors"
+                                      className="p-2 hover:bg-white/10 rounded-lg text-white/40 hover:text-white transition-colors"
                                     >
                                       <Edit2 size={16} />
                                     </button>
                                     <button 
                                       onClick={(e) => { e.stopPropagation(); handleDeleteLog(log.id!); }}
-                                      className="p-1 hover:bg-red-500/10 rounded-lg text-white/40 hover:text-red-400 transition-colors"
+                                      className="p-2 hover:bg-red-500/10 rounded-lg text-white/40 hover:text-red-400 transition-colors"
                                     >
                                       <Trash2 size={16} />
                                     </button>
