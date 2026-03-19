@@ -29,11 +29,11 @@ export function CatTowerIndicator({ spent, target }: CatTowerIndicatorProps) {
       statusText = percentage > 100 ? t('budget.overBudget') : t('budget.atBudget');
       weatherEffects = (
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-4 left-4 text-4xl animate-pulse">⛈</div>
-          <div className="absolute top-8 right-6 text-2xl animate-pulse">⛈</div>
-          <div className="absolute top-12 left-8 text-3xl animate-pulse">⛈</div>
-          <div className="absolute bottom-4 right-4 text-xl animate-bounce">💧</div>
-          <div className="absolute bottom-8 left-6 text-lg animate-bounce">💧</div>
+          <div className="absolute top-2 left-4 text-4xl animate-pulse">⛈</div>
+          <div className="absolute top-6 right-6 text-2xl animate-pulse">⛈</div>
+          <div className="absolute top-10 left-8 text-3xl animate-pulse">⛈</div>
+          <div className="absolute bottom-2 right-4 text-xl animate-bounce">💧</div>
+          <div className="absolute bottom-6 left-6 text-lg animate-bounce">💧</div>
         </div>
       );
     } else if (percentage >= 60) {
@@ -42,9 +42,9 @@ export function CatTowerIndicator({ spent, target }: CatTowerIndicatorProps) {
       statusText = t('budget.gettingClose');
       weatherEffects = (
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-4 left-4 text-2xl text-white/60 animate-pulse">☁️</div>
-          <div className="absolute top-8 right-6 text-xl text-white/50 animate-pulse">☁️</div>
-          <div className="absolute top-12 left-8 text-lg text-white/40 animate-pulse">☁️</div>
+          <div className="absolute top-2 left-4 text-2xl text-white/60 animate-pulse">☁️</div>
+          <div className="absolute top-6 right-6 text-xl text-white/50 animate-pulse">☁️</div>
+          <div className="absolute top-10 left-8 text-lg text-white/40 animate-pulse">☁️</div>
         </div>
       );
     } else {
@@ -90,7 +90,7 @@ export function CatTowerIndicator({ spent, target }: CatTowerIndicatorProps) {
             key={catEmoji}
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ 
-              scale: visualPercentage >= 100 ? 0.7 : 1, 
+              scale: 0.8, 
               opacity: 1,
               bottom: `${Math.min(visualPercentage, 100)}%`
             }}
@@ -98,9 +98,7 @@ export function CatTowerIndicator({ spent, target }: CatTowerIndicatorProps) {
               bottom: { duration: 1, type: "spring", bounce: 0.2 },
               scale: { duration: 0.2 }
             }}
-            className={`absolute left-1/2 -translate-x-1/2 text-5xl drop-shadow-md z-30 ${
-              visualPercentage >= 100 ? 'translate-y-[1.5rem]' : 'translate-y-[2.2rem]'
-            }`}
+            className={`absolute left-1/2 -translate-x-1/2 text-4xl drop-shadow-md z-30 translate-y-[1rem]`}
          >
            {catEmoji}
          </motion.div>
