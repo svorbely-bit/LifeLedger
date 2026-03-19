@@ -6,14 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     
     <title>LifeLedger</title>
+    
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <link rel="manifest" href="/manifest.json">
+    <meta name="apple-mobile-web-app-title" content="LifeLedger">
     
+    <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" href="/icon-192x192.png">
+    <meta name="theme-color" content="#000000">
+
     <script>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-          navigator.serviceWorker.register('/sw.js');
+          // Note: Ensure you actually have a sw.js file in your /public folder!
+          navigator.serviceWorker.register('/sw.js').catch(() => {
+            console.log("Service worker registration skipped or failed.");
+          });
         });
       }
     </script>
