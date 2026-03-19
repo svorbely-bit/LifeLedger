@@ -177,7 +177,7 @@ export default function TabChores({ currentUser }: { currentUser: number | null 
           onClick={() => setIsAdding(!isAdding)}
           className="w-10 h-10 rounded-full bg-gradient-to-tr from-cyan-500 to-blue-500 flex items-center justify-center text-white shadow-lg hover:scale-105 transition-transform"
         >
-          <Plus size={24} className={isAdding ? "rotate-45" : ""} />
+          <Plus size={20} className={isAdding ? "rotate-45" : ""} />
         </button>
       </div>
 
