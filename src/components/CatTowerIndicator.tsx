@@ -11,11 +11,10 @@ export function CatTowerIndicator({ spent, target }: CatTowerIndicatorProps) {
   const hasTarget = target > 0;
   const percentage = hasTarget ? (spent / target) * 100 : 0;
   
-  // Cap visual percentage at 120% so the bar doesn't break out infinitely
-  // But ensure 100% shows as exactly 100%, not capped early
+  // Custom scaling: 0% = barely visible, 100% = full height, capped at 100% for all values
   const visualPercentage = hasTarget 
-    ? (percentage >= 100 ? Math.min(percentage, 120) : percentage)
-    : Math.min((spent / Math.max(spent, 100)) * 50, 50); // Show small bar for spent amount when no target
+    ? Math.min(percentage, 100)
+    : Math.min((spent / Math.max(spent, 100)) * 25, 25); // Show small bar for spent amount when no target
   
   let towerColor = 'bg-blue-400';
   let catEmoji = '🐈‍⬛🐾';
@@ -70,11 +69,8 @@ export function CatTowerIndicator({ spent, target }: CatTowerIndicatorProps) {
        {/* Outer Container for Tower */}
        <div className="h-full w-32 bg-white/5 rounded-t-2xl relative flex flex-col justify-end border-l border-r border-t border-white/10">
          
-         {/* The Clipped filling and weather */}
+         {/* The Clipped filling */}
          <div className="absolute inset-0 rounded-t-[1.4rem] overflow-hidden">
-            {/* Weather Effects Overlay */}
-            {weatherEffects}
-            
             {/* The growing tower / scratched post */}
             <motion.div 
               initial={{ height: 0 }}
@@ -92,17 +88,20 @@ export function CatTowerIndicator({ spent, target }: CatTowerIndicatorProps) {
             animate={{ 
               scale: 0.8, 
               opacity: 1,
-              bottom: `${Math.min(visualPercentage, 100)}%`
+              bottom: `${percentage >= 100 ? 50 : percentage * 0.5}%`
             }}
             transition={{ 
               bottom: { duration: 1, type: "spring", bounce: 0.2 },
               scale: { duration: 0.2 }
             }}
-            className={`absolute left-1/2 -translate-x-1/2 text-4xl drop-shadow-md z-30 translate-y-[1rem]`}
+            className={`absolute left-1/2 -translate-x-1/2 text-4xl drop-shadow-md z-30 translate-y-[0.5rem]`}
          >
            {catEmoji}
          </motion.div>
        </div>
+
+       {/* Weather Effects - OUTSIDE tower container so always visible */}
+       {weatherEffects}
        
        <div className="mt-8 text-center pt-2">
         <p className="font-black text-2xl text-white tracking-tight leading-none mb-1">{statusText}</p>
