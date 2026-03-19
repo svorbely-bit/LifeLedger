@@ -37,15 +37,21 @@ export default function TabChores({ currentUser }: { currentUser: number | null 
       const lastResetDate = localStorage.getItem('lastChoreResetDate');
       const today = format(new Date(), 'yyyy-MM-dd');
       
+      console.log('Chores reset check:', { lastResetDate, today, currentUser });
+      
       if (lastResetDate !== today) {
+        console.log('Performing daily chore reset...');
+        
         // Reset completion status: delete all chore logs (regardless of recurring status)
         await db.choreLogs.where('profileId').equals(currentUser).delete();
         
         // Delete non-recurring chores (keep recurring templates)
-        await db.choreItems.where({ profileId: currentUser, isRecurring: false }).delete();
+        const deletedCount = await db.choreItems.where({ profileId: currentUser, isRecurring: false }).delete();
+        console.log('Deleted non-recurring chores:', deletedCount);
         
         // Update last reset date
         localStorage.setItem('lastChoreResetDate', today);
+        console.log('Daily reset completed');
       }
     };
     
@@ -94,6 +100,7 @@ export default function TabChores({ currentUser }: { currentUser: number | null 
 
   const handleAddChore = async () => {
     if (!newTitle.trim() || !currentUser) return;
+    console.log('Adding chore with isRecurring:', isRecurring);
     await db.choreItems.add({
       title: newTitle,
       parentId: currentParentId,
