@@ -21,7 +21,7 @@ const EMOJI_DB = [
   { char: '🍬', en: 'candy sweet sugar', de: 'süßigkeiten bonbon zucker' },
   { char: '🍷', en: 'wine alcohol drink', de: 'wein alkohol getränk' },
   { char: '🍺', en: 'beer alcohol drink', de: 'bier alkohol getränk' },
-  { char: '�', en: 'beer cheers bar hopping', de: 'bier kneipe prosten feiern' },
+  { char: '🍻', en: 'beer cheers bar hopping', de: 'bier kneipe prosten feiern' },
   { char: '🥤', en: 'drink soda juice', de: 'getränk limonade saft' },
   { char: '🍎', en: 'apple fruit healthy', de: 'apfel obst gesund' },
   { char: '🍌', en: 'banana fruit', de: 'banane obst' },
@@ -31,18 +31,18 @@ const EMOJI_DB = [
   { char: '🍰', en: 'cake dessert birthday', de: 'kuchen dessert geburtstag' },
   
   // Home & Living
-  { char: '�🏠', en: 'house home rent building', de: 'haus miete wohnung gebäude' },
+  { char: '🏠', en: 'house home rent building', de: 'haus miete wohnung gebäude' },
   { char: '🏡', en: 'house with garden home', de: 'haus mit garten heim' },
   { char: '🏢', en: 'office work building', de: 'büro arbeit gebäude' },
   { char: '🏪', en: 'shop store retail', de: 'geschäft laden einzelhandel' },
   { char: '🏨', en: 'hotel accommodation travel', de: 'hotel unterkunft reisen' },
   { char: '🏠', en: 'apartment flat rent', de: 'wohnung miete' },
-  { char: '�️', en: 'sofa furniture living room', de: 'sofa möbel wohnzimmer' },
+  { char: '🛋️', en: 'sofa furniture living room', de: 'sofa möbel wohnzimmer' },
   { char: '🛏️', en: 'bed bedroom sleep', de: 'bett schlafzimmer schlafen' },
   { char: '🚿', en: 'shower bathroom clean', de: 'dusche badezimmer sauber' },
   
   // Transportation
-  { char: '�🚗', en: 'car auto driving vehicle', de: 'auto fahren kfz fahrzeug' },
+  { char: '🚗', en: 'car auto driving vehicle', de: 'auto fahren kfz fahrzeug' },
   { char: '🚕', en: 'taxi cab transport', de: 'taxi transport' },
   { char: '🚌', en: 'bus public transport', de: 'bus öffentlicher nahverkehr' },
   { char: '🚇', en: 'metro subway train', de: 'metro u-bahn zug' },
@@ -64,7 +64,7 @@ const EMOJI_DB = [
   
   // Entertainment & Leisure
   { char: '🎮', en: 'game gaming leisure play', de: 'spiel zocken freizeit spielen' },
-  { char: '�', en: 'target goal aim', de: 'ziel zielsetzung' },
+  { char: '🎯', en: 'target goal aim', de: 'ziel zielsetzung' },
   { char: '🎪', en: 'circus carnival fun', de: 'zirkus karneval spaß' },
   { char: '🎨', en: 'art paint creative', de: 'kunst malen kreativ' },
   { char: '🎭', en: 'theater drama show', de: 'theater drama show vorstellung' },
@@ -77,7 +77,7 @@ const EMOJI_DB = [
   { char: '🛒', en: 'cart shopping groceries buy', de: 'einkaufswagen einkaufen lebensmittel kaufen' },
   { char: '🛍️', en: 'shopping bags buy retail', de: 'einkaufstüten kaufen einzelhandel' },
   { char: '🎫', en: 'ticket club entrance fee event', de: 'ticket eintritt club event gebühr' },
-  { char: '�', en: 'payment card credit debit', de: 'zahlung karte kredit debit' },
+  { char: '💳', en: 'payment card credit debit', de: 'zahlung karte kredit debit' },
   { char: '🏪', en: 'store shop market', de: 'geschäft laden markt' },
   { char: '🏬', en: 'department store mall', de: 'kaufhaus einkaufszentrum' },
   
@@ -128,7 +128,7 @@ const EMOJI_DB = [
   { char: '😴', en: 'sleep tired rest', de: 'schlafen müde ruhe' },
   { char: '🤔', en: 'thinking idea question', de: 'denken idee frage' },
   { char: '👍', en: 'thumbs up good yes', de: 'daumen hoch gut ja' },
-  { char: '�', en: 'thumbs down bad no', de: 'daumen runter schlecht nein' },
+  { char: '👎', en: 'thumbs down bad no', de: 'daumen runter schlecht nein' },
   { char: '❤️', en: 'heart love like', de: 'herz liebe mögen' },
   { char: '⭐', en: 'star favorite good', de: 'stern favorit gut' },
   

@@ -1110,9 +1110,9 @@ export default function TabSpending({ currentUser }: { currentUser: number | nul
                       });
                       setShowTemplates(false);
                     }}
-                    className="px-4 py-1.5 bg-purple-500 text-white text-xs font-bold rounded-lg hover:bg-purple-600 shadow-lg shadow-purple-500/20"
+                    className="w-10 h-10 rounded-xl bg-purple-500 text-white flex items-center justify-center hover:bg-purple-600 shadow-lg shadow-purple-500/20"
                   >
-                    {t('spending.useTemplate')}
+                    <Plus size={20} />
                   </button>
                 </div>
               ))}
