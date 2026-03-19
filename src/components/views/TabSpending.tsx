@@ -858,7 +858,7 @@ export default function TabSpending({ currentUser }: { currentUser: number | nul
                         setLoggingId(loggingId === ticket.id ? null : ticket.id!); 
                         setLogAmount(ticket.isTemplate && ticket.defaultAmount ? ticket.defaultAmount.toString() : ''); 
                       }}
-                      className={`w-14 h-14 rounded-2xl flex items-center justify-center transition-colors ${loggingId === ticket.id ? 'bg-emerald-500 text-white' : 'bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20'}`}
+                      className={`w-10 h-10 rounded-xl flex items-center justify-center transition-colors ${loggingId === ticket.id ? 'bg-emerald-500 text-white' : 'bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20'}`}
                     >
                       {loggingId === ticket.id ? <X size={20} /> : <Plus size={20} />}
                     </button>
