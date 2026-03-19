@@ -275,7 +275,7 @@ export default function TabChores({ currentUser }: { currentUser: number | null 
                   
                   <button 
                     onClick={(e) => handleDeleteChore(chore.id!, e)}
-                    className="p-2.5 opacity-0 group-hover:opacity-100 absolute right-16 bg-red-500/20 text-red-400 rounded-xl hover:bg-red-500/40 transition-all pointer-events-auto"
+                    className="p-2.5 absolute right-16 bg-red-500/20 text-red-400 rounded-xl hover:bg-red-500/40 transition-all pointer-events-auto"
                   >
                     <Trash2 size={16} />
                   </button>
