@@ -92,7 +92,7 @@ export function CatTowerIndicator({ spent, target }: CatTowerIndicatorProps) {
             animate={{ 
               scale: visualPercentage >= 100 ? 0.7 : 1, 
               opacity: 1,
-              bottom: `${visualPercentage}%`
+              bottom: `${Math.min(visualPercentage, 100)}%`
             }}
             transition={{ 
               bottom: { duration: 1, type: "spring", bounce: 0.2 },
