@@ -3,7 +3,7 @@ import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '../../lib/db';
 import { differenceInDays, isSameDay, format } from 'date-fns';
 import { de } from 'date-fns/locale';
-import { Activity, TrendingUp, TrendingDown, Clock, ShieldAlert, X } from 'lucide-react';
+import { Activity, TrendingUp, TrendingDown, Clock, ShieldAlert, X, Edit2, Calendar } from 'lucide-react';
 import { useI18n } from '../../lib/i18n';
 
 export default function TabInflation({ currentUser }: { currentUser: number | null }) {
@@ -11,6 +11,9 @@ export default function TabInflation({ currentUser }: { currentUser: number | nu
   const dateLocale = language === 'de' ? de : undefined;
   const [projectionYears, setProjectionYears] = useState(5);
   const [expandedTicketId, setExpandedTicketId] = useState<number | null>(null);
+  const [editingLogId, setEditingLogId] = useState<number | null>(null);
+  const [editLogDate, setEditLogDate] = useState<string>('');
+  const [editLogAmount, setEditLogAmount] = useState<string>('');
   const priceHistory = useLiveQuery(() => {
     if (!currentUser) return [];
     return db.priceHistory.where('profileId').equals(currentUser).toArray();
@@ -43,7 +46,7 @@ export default function TabInflation({ currentUser }: { currentUser: number | nu
      // sort logs by date
      const sortedLogs = data.logs.sort((a: any, b: any) => new Date(a.date).getTime() - new Date(b.date).getTime());
      
-     // Calculate overall inflation from first log to the most recent one (or current price)
+     // Calculate overall inflation from first log to most recent one (or current price)
      const firstLog = sortedLogs[0];
      const lastLog = sortedLogs[sortedLogs.length - 1];
      
@@ -53,9 +56,9 @@ export default function TabInflation({ currentUser }: { currentUser: number | nu
      
      const daysPassed = differenceInDays(new Date(lastLog.date), new Date(firstLog.date));
      
-     // Only calculate annualized rate if logs are on different calendar days
+     // Only calculate annualized rate if there's at least 1 day difference
      // Otherwise, we show the raw change as "too early"
-     const isTooShort = isSameDay(new Date(lastLog.date), new Date(firstLog.date));
+     const isTooShort = daysPassed < 1;
      const annualizedRate = isTooShort ? 0 : (percentageChange / daysPassed) * 365;
 
      // 5-year projection calculation 
@@ -82,6 +85,29 @@ export default function TabInflation({ currentUser }: { currentUser: number | nu
 
   const handleDeleteHistoryEntry = async (id: number) => {
     await db.priceHistory.delete(id);
+  };
+
+  const handleEditHistoryEntry = async (id: number) => {
+    const log = priceHistory.find(l => l.id === id);
+    if (!log) return;
+    
+    setEditingLogId(id);
+    setEditLogDate(format(new Date(log.date), 'yyyy-MM-dd'));
+    setEditLogAmount(log.newAmount.toString());
+  };
+
+  const handleUpdateHistoryEntry = async () => {
+    if (!editingLogId) return;
+    
+    const selectedDate = new Date(editLogDate);
+    const nowTime = new Date();
+    selectedDate.setHours(nowTime.getHours(), nowTime.getMinutes(), nowTime.getSeconds());
+
+    await db.priceHistory.update(editingLogId, {
+      amount: parseFloat(editLogAmount),
+      date: selectedDate.toISOString()
+    });
+    setEditingLogId(null);
   };
 
   return (
@@ -216,6 +242,54 @@ export default function TabInflation({ currentUser }: { currentUser: number | nu
                             <span className="mx-2 text-white/20">→</span>
                             <span className="text-white font-bold">${log.newAmount.toFixed(2)}</span>
                           </div>
+                        </div>
+                        <div className="flex gap-2">
+                          {editingLogId === log.id ? (
+                            <div className="flex flex-col gap-3">
+                              <div className="flex gap-2">
+                                <div className="flex items-center gap-2">
+                                  <Calendar size={16} className="text-white/60" />
+                                  <input 
+                                    type="date" 
+                                    value={editLogDate}
+                                    onChange={e => setEditLogDate(e.target.value)}
+                                    className="flex-1 bg-white/10 border border-white/10 rounded-xl px-4 py-2 text-white text-sm outline-none"
+                                  />
+                                </div>
+                                <input 
+                                  type="number" 
+                                  value={editLogAmount}
+                                  onChange={e => setEditLogAmount(e.target.value)}
+                                  className="flex-1 bg-white/10 border border-white/10 rounded-xl px-4 py-2 text-white text-sm outline-none"
+                                />
+                              </div>
+                              <div className="flex gap-2">
+                                <button onClick={() => handleUpdateHistoryEntry()} className="flex-1 py-2 bg-emerald-500 text-white text-[12px] font-bold rounded-xl uppercase">{t('spending.save')}</button>
+                                <button onClick={() => setEditingLogId(null)} className="flex-1 py-2 bg-white/10 text-white text-[12px] font-bold rounded-xl uppercase">{t('profile.cancel')}</button>
+                              </div>
+                            </div>
+                          ) : (
+                            <button 
+                              onClick={() => {
+                                setEditingLogId(log.id!);
+                                setEditLogDate(format(new Date(log.date), 'yyyy-MM-dd'));
+                                setEditLogAmount(log.newAmount.toString());
+                              }}
+                              className="p-2 hover:bg-white/10 rounded-xl text-white/40 hover:text-white transition-colors"
+                              title="Edit entry"
+                            >
+                              <Edit2 size={14} />
+                            </button>
+                          )}
+                          <button 
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleDeleteHistoryEntry(log.id!);
+                            }}
+                            className="w-8 h-8 rounded-xl bg-red-500/10 text-red-400 opacity-0 group-hover/item:opacity-100 hover:bg-red-500/20 transition-all flex items-center justify-center"
+                          >
+                            <X size={14} />
+                          </button>
                         </div>
                         <button 
                           onClick={(e) => {

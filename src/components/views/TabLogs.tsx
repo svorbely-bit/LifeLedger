@@ -139,8 +139,18 @@ export default function TabLogs({ currentUser }: { currentUser: number | null })
       updateBreakdown(yearlyReport, ticket, logDate);
     });
     
-    // Combine all reports, sort each breakdown by amount, and sort reports by date
-    const allReports = [...dailyReports.values(), ...monthlyReports.values(), ...yearlyReports.values()];
+    // Combine current period reports only, sort each breakdown by amount
+    const todayKey = format(new Date(), 'yyyy-MM-dd');
+    const thisMonthKey = format(new Date(), 'yyyy-MM');
+    const thisYearKey = format(new Date(), 'yyyy');
+    
+    const currentReports = [
+      ...Array.from(dailyReports.values()).filter((r: Report) => r.id === `daily-${todayKey}`),
+      ...Array.from(monthlyReports.values()).filter((r: Report) => r.id === `monthly-${thisMonthKey}`),
+      ...Array.from(yearlyReports.values()).filter((r: Report) => r.id === `yearly-${thisYearKey}`)
+    ];
+    
+    const allReports = currentReports;
     
     allReports.forEach(r => {
       r.ticketBreakdown.sort((a, b) => b.amount - a.amount);
