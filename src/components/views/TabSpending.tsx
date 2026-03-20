@@ -793,7 +793,7 @@ export default function TabSpending({ currentUser }: { currentUser: number | nul
                    }
                  }}
                >
-                 <div className="flex gap-6 cursor-pointer">
+                 <div className="flex gap-6 cursor-pointer relative">
                     <button 
                       onClick={(e) => { 
                         e.stopPropagation(); 
@@ -805,7 +805,7 @@ export default function TabSpending({ currentUser }: { currentUser: number | nul
                     >
                       {ticket.icon}
                     </button>
-                    <div className="flex flex-col justify-center flex-1 min-w-0 pr-12">
+                    <div className="flex flex-col justify-center flex-1 min-w-0 pr-20">
                       <h3 className="font-black text-2xl text-white group flex items-center gap-2 tracking-tight truncate" title={ticket.name}>
                         {ticket.name}
                         <button 
@@ -828,20 +828,21 @@ export default function TabSpending({ currentUser }: { currentUser: number | nul
                         : <span className="text-white font-black">${periodSpent.toFixed(2)}</span> 
                       </p>
                     </div>
-                 </div>
-                 
-                 <div className="flex gap-2">
-                    <button 
-                      onClick={(e) => { 
-                        e.stopPropagation(); 
-                        setLoggingId(loggingId === ticket.id ? null : ticket.id!); 
-                        setLogAmount(ticket.isTemplate && ticket.defaultAmount ? ticket.defaultAmount.toString() : ''); 
-                      }}
-                      className={`w-10 h-10 rounded-xl flex items-center justify-center transition-colors ${loggingId === ticket.id ? 'bg-emerald-500 text-white' : 'bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20'}`}
-                    >
-                      {loggingId === ticket.id ? <X size={20} /> : <Plus size={20} />}
-                    </button>
-                    {hasChildren && <ChevronRight className="m-auto text-white/20" />}
+                    
+                    {/* Fixed Position Add Button */}
+                    <div className="absolute right-0 top-1/2 -translate-y-1/2 flex gap-2">
+                      <button 
+                        onClick={(e) => { 
+                          e.stopPropagation(); 
+                          setLoggingId(loggingId === ticket.id ? null : ticket.id!); 
+                          setLogAmount(ticket.isTemplate && ticket.defaultAmount ? ticket.defaultAmount.toString() : ''); 
+                        }}
+                        className={`w-10 h-10 rounded-xl flex items-center justify-center transition-colors ${loggingId === ticket.id ? 'bg-emerald-500 text-white' : 'bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20'}`}
+                      >
+                        {loggingId === ticket.id ? <X size={20} /> : <Plus size={20} />}
+                      </button>
+                      {hasChildren && <ChevronRight className="m-auto text-white/20" />}
+                    </div>
                  </div>
                </div>
 
