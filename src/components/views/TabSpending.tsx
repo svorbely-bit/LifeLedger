@@ -800,21 +800,33 @@ export default function TabSpending({ currentUser }: { currentUser: number | nul
                         setEditingTicketId(ticket.id!); 
                         setEditIcon(ticket.icon || ''); 
                         setEmojiPickerTarget('edit');
-                        <div className="flex items-center gap-2 mt-4">
-                           <button 
-                             onClick={(e) => handleQuickLog(ticket.id!, ticket.defaultAmount!, e)}
-                             className="w-16 h-10 bg-emerald-500/20 text-emerald-400 rounded-xl text-sm font-black hover:bg-emerald-500/30 transition-all active:scale-95 flex items-center justify-center"
-                           >
-                             +
-                           </button>
-                           <button 
-                             onClick={(e) => handleQuickLog(ticket.id!, -ticket.defaultAmount!, e)}
-                             className="w-16 h-10 bg-red-500/20 text-red-400 rounded-xl text-sm font-black hover:bg-red-500/30 transition-all active:scale-95 flex items-center justify-center"
-                           >
-                             -
-                           </button>
-                        </div>
-                      )}
+                      }} 
+                      className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-2xl hover:bg-white/10 transition-colors shrink-0"
+                    >
+                      {ticket.icon}
+                    </button>
+                    <div className="flex flex-col justify-center flex-1 min-w-0 pr-12">
+                      <h3 className="font-black text-2xl text-white group flex items-center gap-2 tracking-tight truncate" title={ticket.name}>
+                        {ticket.name}
+                        <button 
+                          onClick={(e) => { 
+                            e.stopPropagation(); 
+                            setEditingTicketId(ticket.id!); 
+                            setEditName(ticket.name); 
+                            setEditTarget(ticket.target?.toString() || '');
+                            setEditAmount(ticket.defaultAmount?.toString() || '');
+                          }}
+                          className="text-white/40 hover:text-white transition-opacity ml-1 p-2 flex-shrink-0"
+                        >
+                          <Edit2 size={20} />
+                        </button>
+                      </h3>
+                      <p className="text-white/60 text-lg">
+                        {ticket.period === 'daily' && t('spending.spent.daily')}
+                        {ticket.period === 'monthly' && t('spending.spent.monthly')}
+                        {ticket.period === 'yearly' && t('spending.spent.yearly')}
+                        : <span className="text-white font-black">${periodSpent.toFixed(2)}</span> 
+                      </p>
                     </div>
                  </div>
                  
@@ -833,7 +845,25 @@ export default function TabSpending({ currentUser }: { currentUser: number | nul
                  </div>
                </div>
 
-                      {/* Log Panel & List */}
+                      {/* Template Quick Add Buttons */}
+                      {ticket.isTemplate && ticket.defaultAmount !== undefined && (
+                        <div className="flex items-center gap-2 mt-4">
+                           <button 
+                             onClick={(e) => handleQuickLog(ticket.id!, ticket.defaultAmount!, e)}
+                             className="w-16 h-10 bg-emerald-500/20 text-emerald-400 rounded-xl text-sm font-black hover:bg-emerald-500/30 transition-all active:scale-95 flex items-center justify-center"
+                           >
+                             +
+                           </button>
+                           <button 
+                             onClick={(e) => handleQuickLog(ticket.id!, -ticket.defaultAmount!, e)}
+                             className="w-16 h-10 bg-red-500/20 text-red-400 rounded-xl text-sm font-black hover:bg-red-500/30 transition-all active:scale-95 flex items-center justify-center"
+                           >
+                             -
+                           </button>
+                        </div>
+                      )}
+
+               {/* Log Panel & List */}
                 {loggingId === ticket.id && (
                   <div className="p-4 bg-black/20 rounded-2xl flex flex-col gap-4 animate-in slide-in-from-top-2">
                     {/* Log Items List */}
