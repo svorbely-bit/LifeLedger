@@ -806,20 +806,8 @@ export default function TabSpending({ currentUser }: { currentUser: number | nul
                       {ticket.icon}
                     </button>
                     <div className="flex flex-col justify-center flex-1 min-w-0 pr-20">
-                      <h3 className="font-black text-2xl text-white group flex items-center gap-2 tracking-tight truncate" title={ticket.name}>
+                      <h3 className="font-black text-2xl text-white tracking-tight truncate" title={ticket.name}>
                         {ticket.name}
-                        <button 
-                          onClick={(e) => { 
-                            e.stopPropagation(); 
-                            setEditingTicketId(ticket.id!); 
-                            setEditName(ticket.name); 
-                            setEditTarget(ticket.target?.toString() || '');
-                            setEditAmount(ticket.defaultAmount?.toString() || '');
-                          }}
-                          className="text-white/40 hover:text-white transition-opacity ml-1 p-2 flex-shrink-0"
-                        >
-                          <Edit2 size={20} />
-                        </button>
                       </h3>
                       <p className="text-white/60 text-lg">
                         {ticket.period === 'daily' && t('spending.spent.daily')}
@@ -829,8 +817,24 @@ export default function TabSpending({ currentUser }: { currentUser: number | nul
                       </p>
                     </div>
                     
-                    {/* Fixed Position Add Button */}
-                    <div className="absolute right-0 top-1/2 -translate-y-1/2 flex gap-2">
+                    {/* Fixed Position Buttons Container */}
+                    <div className="absolute right-0 top-1/2 -translate-y-1/2 flex flex-col gap-2">
+                      {/* Edit Button */}
+                      <button 
+                        onClick={(e) => { 
+                          e.stopPropagation(); 
+                          setEditingTicketId(ticket.id!); 
+                          setEditName(ticket.name); 
+                          setEditTarget(ticket.target?.toString() || '');
+                          setEditAmount(ticket.defaultAmount?.toString() || '');
+                        }}
+                        className="text-white/40 hover:text-white transition-opacity p-2 rounded-xl hover:bg-white/10"
+                        title="Edit ticket"
+                      >
+                        <Edit2 size={16} />
+                      </button>
+                      
+                      {/* Add Button */}
                       <button 
                         onClick={(e) => { 
                           e.stopPropagation(); 
@@ -838,9 +842,11 @@ export default function TabSpending({ currentUser }: { currentUser: number | nul
                           setLogAmount(ticket.isTemplate && ticket.defaultAmount ? ticket.defaultAmount.toString() : ''); 
                         }}
                         className={`w-10 h-10 rounded-xl flex items-center justify-center transition-colors ${loggingId === ticket.id ? 'bg-emerald-500 text-white' : 'bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20'}`}
+                        title={loggingId === ticket.id ? "Close" : "Add expense"}
                       >
-                        {loggingId === ticket.id ? <X size={20} /> : <Plus size={20} />}
+                        {loggingId === ticket.id ? <X size={16} /> : <Plus size={16} />}
                       </button>
+                      
                       {hasChildren && <ChevronRight className="m-auto text-white/20" />}
                     </div>
                  </div>
