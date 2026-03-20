@@ -253,16 +253,16 @@ export default function TabChores({ currentUser }: { currentUser: number | null 
                    colorClass={isFull ? 'text-green-400' : 'text-blue-400'}
                  />
 
-                <div className="flex-1 min-w-0 flex items-center gap-3 relative">
+                <div className="flex-1 min-w-0 flex items-center gap-3 relative pr-16">
                   <div className="w-10 h-10 shrink-0 rounded-2xl bg-white/10 border border-white/5 flex items-center justify-center text-2xl shadow-inner">
                     {chore.icon}
                   </div>
-                  <h3 className={`font-bold text-lg truncate relative ${isFull ? 'text-white' : 'text-white'}`}>
+                  <h3 className={`font-bold text-lg truncate ${isFull ? 'text-white' : 'text-white'}`} title={chore.title}>
                     {chore.title}
                   </h3>
                 </div>
 
-                <div className="flex gap-2 items-center flex-shrink-0 relative z-20">
+                <div className="flex gap-2 items-center flex-shrink-0 relative z-20 absolute right-4">
                   {/* Checkbox for easy completion */}
                   {!hasChildren && (
                     <label className="cursor-pointer flex items-center" onClick={(e) => e.stopPropagation()}>
@@ -282,7 +282,7 @@ export default function TabChores({ currentUser }: { currentUser: number | null 
                   
                   <button 
                     onClick={(e) => handleDeleteChore(chore.id!, e)}
-                    className="p-2.5 absolute right-16 bg-red-500/20 text-red-400 rounded-xl hover:bg-red-500/40 transition-all pointer-events-auto"
+                    className="p-2.5 bg-red-500/20 text-red-400 rounded-xl hover:bg-red-500/40 transition-all pointer-events-auto"
                   >
                     <Trash2 size={16} />
                   </button>

@@ -800,39 +800,6 @@ export default function TabSpending({ currentUser }: { currentUser: number | nul
                         setEditingTicketId(ticket.id!); 
                         setEditIcon(ticket.icon || ''); 
                         setEmojiPickerTarget('edit');
-                      }} 
-                      className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-2xl hover:bg-white/10 transition-colors shrink-0"
-                    >
-                      {ticket.icon}
-                    </button>
-                    <div className="flex flex-col justify-center">
-                      <h3 className="font-black text-2xl text-white group flex items-center gap-2 tracking-tight">
-                        {ticket.name}
-                        <button 
-                          onClick={(e) => { 
-                            e.stopPropagation(); 
-                            setEditingTicketId(ticket.id!); 
-                            setEditName(ticket.name); 
-                            setEditTarget(ticket.target?.toString() || '');
-                            setEditAmount(ticket.defaultAmount?.toString() || '');
-                          }}
-                          className="text-white/40 hover:text-white transition-opacity ml-1 p-2"
-                        >
-                          <Edit2 size={20} />
-                        </button>
-                      </h3>
-                      <p className="text-white/60 text-lg">
-                        {ticket.period === 'daily' && t('spending.spent.daily')}
-                        {ticket.period === 'monthly' && t('spending.spent.monthly')}
-                        {ticket.period === 'yearly' && t('spending.spent.yearly')}
-                        : <span className="text-white font-black">${periodSpent.toFixed(2)}</span> 
-                      </p>
-                     {activePeriod === 'monthly' && dailySpent > 0 && (
-                        <p className="text-sm text-white/30 font-medium pb-2">
-                          ({t('logs.daily')}: ${dailySpent.toFixed(2)} + {t('logs.monthly')}: ${monthlySpent.toFixed(2)})
-                        </p>
-                      )}
-                      {ticket.isTemplate && ticket.defaultAmount !== undefined && (
                         <div className="flex items-center gap-2 mt-4">
                            <button 
                              onClick={(e) => handleQuickLog(ticket.id!, ticket.defaultAmount!, e)}

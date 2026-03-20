@@ -506,10 +506,10 @@ export default function TabLogs({ currentUser }: { currentUser: number | null })
                   className="w-full glass p-8 rounded-[2rem] border border-white/5 hover:border-white/10 transition-all text-left"
                 >
                   <div className="flex justify-between items-center">
-                    <div className="flex items-center gap-3">
-                      <span className="text-2xl">{ticket.icon}</span>
-                      <div>
-                        <h4 className="font-black text-xl text-white tracking-tight">{ticket.name}</h4>
+                    <div className="flex items-center gap-3 flex-1 min-w-0">
+                      <span className="text-2xl shrink-0">{ticket.icon}</span>
+                      <div className="flex-1 min-w-0">
+                        <h4 className="font-black text-xl text-white tracking-tight truncate" title={ticket.name}>{ticket.name}</h4>
                         <p className="text-base text-white/50 font-medium">
                           {ticket.period === 'daily' && t('logs.daily')}
                           {ticket.period === 'monthly' && t('logs.monthly')}
